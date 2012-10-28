@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="teamcitynetpublisherplugin" default="all">
+  
+  
+  <property file="teamcitynetpublisherplugin.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm.jar"/>
+    <pathelement location="${javac2.home}/asm-commons.jar"/>
+  </path>
+  <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+  <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.sbas/**"/>
+    <exclude name="**/.IJI.*/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+    <include name="**/?*.htm"/>
+    <include name="**/?*.jsp"/>
+    <include name="**/?*.js"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.teamcity_open_api_agent.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/agent-api.jar"/>
+  </path>
+  
+  <path id="library.teamcity_open_api_common.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/common-api.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/runtime-util.jar"/>
+  </path>
+  
+  <path id="library.teamcity_open_api_server.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/server-api.jar"/>
+  </path>
+  
+  <path id="library.teamcity_third-party_common.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/openapi.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/spring.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
+  </path>
+  
+  <path id="library.teamcity_third-party_server.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/spring-webmvc.jar"/>
+  </path>
+  
+  <path id="library.tomcat.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/lib/servlet-api.jar"/>
+  </path>
+  
+  
+  <!-- Application Server Libraries -->
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module TeamCityNetPublisherPlugin-common -->
+  
+  <dirname property="module.teamcitynetpublisherplugin-common.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.teamcitynetpublisherplugin-common" value="${compiler.args}"/>
+  
+  <property name="teamcitynetpublisherplugin-common.output.dir" value="${module.teamcitynetpublisherplugin-common.basedir}/out/production/TeamCityNetPublisherPlugin-common"/>
+  <property name="teamcitynetpublisherplugin-common.testoutput.dir" value="${module.teamcitynetpublisherplugin-common.basedir}/out/test/TeamCityNetPublisherPlugin-common"/>
+  
+  <path id="teamcitynetpublisherplugin-common.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="teamcitynetpublisherplugin-common.module.classpath">
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+  </path>
+  
+  <path id="teamcitynetpublisherplugin-common.runtime.module.classpath">
+    <pathelement location="${teamcitynetpublisherplugin-common.output.dir}"/>
+    <pathelement location="${teamcitynetpublisherplugin-common.testoutput.dir}"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.teamcitynetpublisherplugin-common">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.teamcitynetpublisherplugin-common">
+    <patternset refid="excluded.from.module.teamcitynetpublisherplugin-common"/>
+  </patternset>
+  
+  <path id="teamcitynetpublisherplugin-common.module.sourcepath">
+    <dirset dir="${module.teamcitynetpublisherplugin-common.basedir}/common">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.teamcitynetpublisherplugin-common" depends="compile.module.teamcitynetpublisherplugin-common.production,compile.module.teamcitynetpublisherplugin-common.tests" description="Compile module TeamCityNetPublisherPlugin-common"/>
+  
+  <target name="compile.module.teamcitynetpublisherplugin-common.production" description="Compile module TeamCityNetPublisherPlugin-common; production classes">
+    <mkdir dir="${teamcitynetpublisherplugin-common.output.dir}"/>
+    <javac2 destdir="${teamcitynetpublisherplugin-common.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.teamcitynetpublisherplugin-common}"/>
+      <bootclasspath refid="teamcitynetpublisherplugin-common.module.bootclasspath"/>
+      <classpath refid="teamcitynetpublisherplugin-common.module.classpath"/>
+      <src refid="teamcitynetpublisherplugin-common.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.teamcitynetpublisherplugin-common"/>
+    </javac2>
+    
+    <copy todir="${teamcitynetpublisherplugin-common.output.dir}">
+      <fileset dir="${module.teamcitynetpublisherplugin-common.basedir}/common/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.teamcitynetpublisherplugin-common.tests" depends="compile.module.teamcitynetpublisherplugin-common.production" description="compile module TeamCityNetPublisherPlugin-common; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.teamcitynetpublisherplugin-common" description="cleanup module">
+    <delete dir="${teamcitynetpublisherplugin-common.output.dir}"/>
+    <delete dir="${teamcitynetpublisherplugin-common.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module TeamCityNetPublisherPlugin-agent -->
+  
+  <dirname property="module.teamcitynetpublisherplugin-agent.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.teamcitynetpublisherplugin-agent" value="${compiler.args}"/>
+  
+  <property name="teamcitynetpublisherplugin-agent.output.dir" value="${module.teamcitynetpublisherplugin-agent.basedir}/out/production/TeamCityNetPublisherPlugin-agent"/>
+  <property name="teamcitynetpublisherplugin-agent.testoutput.dir" value="${module.teamcitynetpublisherplugin-agent.basedir}/out/test/TeamCityNetPublisherPlugin-agent"/>
+  
+  <path id="teamcitynetpublisherplugin-agent.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="teamcitynetpublisherplugin-agent.module.classpath">
+    <path refid="library.teamcity_open_api_agent.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <pathelement location="${teamcitynetpublisherplugin-common.output.dir}"/>
+    <pathelement location="${teamcitynetpublisherplugin-common.testoutput.dir}"/>
+  </path>
+  
+  <path id="teamcitynetpublisherplugin-agent.runtime.module.classpath">
+    <pathelement location="${teamcitynetpublisherplugin-agent.output.dir}"/>
+    <pathelement location="${teamcitynetpublisherplugin-agent.testoutput.dir}"/>
+    <path refid="library.teamcity_open_api_agent.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="teamcitynetpublisherplugin-common.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.teamcitynetpublisherplugin-agent">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.teamcitynetpublisherplugin-agent">
+    <patternset refid="excluded.from.module.teamcitynetpublisherplugin-agent"/>
+  </patternset>
+  
+  <path id="teamcitynetpublisherplugin-agent.module.sourcepath">
+    <dirset dir="${module.teamcitynetpublisherplugin-agent.basedir}/agent">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.teamcitynetpublisherplugin-agent" depends="compile.module.teamcitynetpublisherplugin-agent.production,compile.module.teamcitynetpublisherplugin-agent.tests" description="Compile module TeamCityNetPublisherPlugin-agent"/>
+  
+  <target name="compile.module.teamcitynetpublisherplugin-agent.production" depends="compile.module.teamcitynetpublisherplugin-common" description="Compile module TeamCityNetPublisherPlugin-agent; production classes">
+    <mkdir dir="${teamcitynetpublisherplugin-agent.output.dir}"/>
+    <javac2 destdir="${teamcitynetpublisherplugin-agent.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.teamcitynetpublisherplugin-agent}"/>
+      <bootclasspath refid="teamcitynetpublisherplugin-agent.module.bootclasspath"/>
+      <classpath refid="teamcitynetpublisherplugin-agent.module.classpath"/>
+      <src refid="teamcitynetpublisherplugin-agent.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.teamcitynetpublisherplugin-agent"/>
+    </javac2>
+    
+    <copy todir="${teamcitynetpublisherplugin-agent.output.dir}">
+      <fileset dir="${module.teamcitynetpublisherplugin-agent.basedir}/agent/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.teamcitynetpublisherplugin-agent.tests" depends="compile.module.teamcitynetpublisherplugin-agent.production" description="compile module TeamCityNetPublisherPlugin-agent; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.teamcitynetpublisherplugin-agent" description="cleanup module">
+    <delete dir="${teamcitynetpublisherplugin-agent.output.dir}"/>
+    <delete dir="${teamcitynetpublisherplugin-agent.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module TeamCityNetPublisherPlugin-server -->
+  
+  <dirname property="module.teamcitynetpublisherplugin-server.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.teamcitynetpublisherplugin-server" value="${compiler.args}"/>
+  
+  <property name="teamcitynetpublisherplugin-server.output.dir" value="${module.teamcitynetpublisherplugin-server.basedir}/out/production/TeamCityNetPublisherPlugin-server"/>
+  <property name="teamcitynetpublisherplugin-server.testoutput.dir" value="${module.teamcitynetpublisherplugin-server.basedir}/out/test/TeamCityNetPublisherPlugin-server"/>
+  
+  <path id="teamcitynetpublisherplugin-server.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="teamcitynetpublisherplugin-server.module.classpath">
+    <path refid="library.tomcat.classpath"/>
+    <path refid="library.teamcity_open_api_server.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="library.teamcity_third-party_server.classpath"/>
+    <pathelement location="${teamcitynetpublisherplugin-common.output.dir}"/>
+    <pathelement location="${teamcitynetpublisherplugin-common.testoutput.dir}"/>
+  </path>
+  
+  <path id="teamcitynetpublisherplugin-server.runtime.module.classpath">
+    <pathelement location="${teamcitynetpublisherplugin-server.output.dir}"/>
+    <pathelement location="${teamcitynetpublisherplugin-server.testoutput.dir}"/>
+    <path refid="library.tomcat.classpath"/>
+    <path refid="library.teamcity_open_api_server.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="library.teamcity_third-party_server.classpath"/>
+    <path refid="teamcitynetpublisherplugin-common.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.teamcitynetpublisherplugin-server">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.teamcitynetpublisherplugin-server">
+    <patternset refid="excluded.from.module.teamcitynetpublisherplugin-server"/>
+  </patternset>
+  
+  <path id="teamcitynetpublisherplugin-server.module.sourcepath">
+    <dirset dir="${module.teamcitynetpublisherplugin-server.basedir}/server">
+      <include name="src"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.teamcitynetpublisherplugin-server" depends="compile.module.teamcitynetpublisherplugin-server.production,compile.module.teamcitynetpublisherplugin-server.tests" description="Compile module TeamCityNetPublisherPlugin-server"/>
+  
+  <target name="compile.module.teamcitynetpublisherplugin-server.production" depends="compile.module.teamcitynetpublisherplugin-common" description="Compile module TeamCityNetPublisherPlugin-server; production classes">
+    <mkdir dir="${teamcitynetpublisherplugin-server.output.dir}"/>
+    <javac2 destdir="${teamcitynetpublisherplugin-server.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.teamcitynetpublisherplugin-server}"/>
+      <bootclasspath refid="teamcitynetpublisherplugin-server.module.bootclasspath"/>
+      <classpath refid="teamcitynetpublisherplugin-server.module.classpath"/>
+      <src refid="teamcitynetpublisherplugin-server.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.teamcitynetpublisherplugin-server"/>
+    </javac2>
+    
+    <copy todir="${teamcitynetpublisherplugin-server.output.dir}">
+      <fileset dir="${module.teamcitynetpublisherplugin-server.basedir}/server/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.teamcitynetpublisherplugin-server.basedir}/server/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.teamcitynetpublisherplugin-server.tests" depends="compile.module.teamcitynetpublisherplugin-server.production" description="compile module TeamCityNetPublisherPlugin-server; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.teamcitynetpublisherplugin-server" description="cleanup module">
+    <delete dir="${teamcitynetpublisherplugin-server.output.dir}"/>
+    <delete dir="${teamcitynetpublisherplugin-server.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.teamcitynetpublisherplugin-common, clean.module.teamcitynetpublisherplugin-agent, clean.module.teamcitynetpublisherplugin-server" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.teamcitynetpublisherplugin-common, compile.module.teamcitynetpublisherplugin-agent, compile.module.teamcitynetpublisherplugin-server" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>

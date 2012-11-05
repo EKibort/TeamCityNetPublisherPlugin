@@ -24,8 +24,9 @@ public class ServerListener extends BuildServerAdapter {
   @Override
   public void buildFinished(SRunningBuild build) {
       String publishPath = build.getParametersProvider().get(Util.PUBLISH_PATH);
+      String publishOn = build.getParametersProvider().get(Util.PUBLISH_ON);
 
-      if (build.getBuildStatus().isSuccessful()){
+      if (build.getBuildStatus().isSuccessful() || publishOn.equalsIgnoreCase("always")){
 
           Loggers.SERVER.info("Publishing artifacts to: '"+publishPath+"'");
 

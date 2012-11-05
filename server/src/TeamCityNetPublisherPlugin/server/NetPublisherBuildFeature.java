@@ -82,7 +82,7 @@ public class NetPublisherBuildFeature extends BuildFeature {
         StringBuilder result = new StringBuilder();
         if (params.containsKey(Util.PUBLISH_PATH) && !params.get(Util.PUBLISH_PATH).isEmpty())
         {
-            result.append("Publishing artifacts to '"+params.get(Util.PUBLISH_PATH)+"'");
+            result.append("Publishing artifacts to '"+params.get(Util.PUBLISH_PATH)+"' - "+params.get(Util.PUBLISH_ON));
         }
         else
         {
@@ -95,6 +95,7 @@ public class NetPublisherBuildFeature extends BuildFeature {
     public Map<String, String> getDefaultParameters() {
         final Map<String, String> defaults = new HashMap<String, String>(1);
         defaults.put(Util.PUBLISH_PATH, "");
+        defaults.put(Util.PUBLISH_ON, "always");
         return defaults;
     }
 

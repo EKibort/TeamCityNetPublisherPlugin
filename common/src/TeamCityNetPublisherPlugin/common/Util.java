@@ -24,4 +24,6 @@ public class Util {
     public final static String TYPE = "NetPublisherPlugin";
 
     public static final String PUBLISH_PATH = "NetPublisherPlugin.publishPath";
+    public static final String PUBLISH_ON   = "NetPublisherPlugin.publishOn";
+
 }

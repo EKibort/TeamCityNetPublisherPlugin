@@ -19,3 +19,11 @@
     </span>
 </tr>
 
+<tr class="noBorder">
+  <th>Publish on:</th>
+  <td>
+    <props:selectProperty name="NetPublisherPlugin.publishOn">
+      <props:option value="always">Any build result</props:option>
+      <props:option value="success">Only success builds</props:option>
+    </props:selectProperty>
+</tr>

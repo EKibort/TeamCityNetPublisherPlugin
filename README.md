@@ -17,7 +17,7 @@ copy TeamCityNetPublisherPlugin.zip to plugins directory (for windows %USERPROFI
 Using
 -----
 Add "Publish artifacts to specific path" build feature and specify path to publishing like this "\\SERVER\SHARE\BUILDS\%env.BUILD_NUMBER%'" or "C:\PATH\MY BUILDS\%env.BUILD_NUMBER%"
-Artifacts will published only for success builds.
+You can setup publishing for all builds or only for success.
 TemCity build server acount should have permissions to specified publishing path.
 
 

@@ -21,6 +21,7 @@ public class NetPublisherBuildParametersProvider extends AbstractBuildParameters
             for (SBuildFeatureDescriptor feature : buildType.getBuildFeatures()){
                 if (feature.getBuildFeature().getType().equals(Util.TYPE)){
                     parameters.put(Util.PUBLISH_PATH, feature.getParameters().get(Util.PUBLISH_PATH));
+                    parameters.put(Util.PUBLISH_ON, feature.getParameters().get(Util.PUBLISH_ON));
                 }
             }
         }

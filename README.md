@@ -10,9 +10,9 @@ run ant in root directory
 get compiled TeamCityNetPublisherPlugin.zip from dist folder
 
 
-Instalation
+Installation
 ------------
-copy TeamCityNetPublisherPlugin.zip to plugins directory (for windows %USERPROFILE%\.BuildServer\plugins) and resart TeamCity server
+Copy TeamCityNetPublisherPlugin.zip to plugins directory (for windows %USERPROFILE%\.BuildServer\plugins) and resart TeamCity server
 
 Using
 -----
